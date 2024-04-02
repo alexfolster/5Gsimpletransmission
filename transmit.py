@@ -4,7 +4,7 @@ from vidgear.gears import NetGear
 import time
 
 opt = {"CAP_PROP_FPS": 30}
-stream = VideoGear(source="test.mp4", **opt).start()
+stream = VideoGear(source="testvideo.mp4", **opt).start()
 options = {"bidirectional_mode": True}
 
 server = NetGear(
