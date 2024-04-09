@@ -26,8 +26,9 @@ while True:
         if frame is None:
             break
         
-        server.send(frame)
         time_sent = int(round(time.time() * 1000)) #time in ms
+        server.send(frame)
+       
 
         with open('transmit_times.txt', 'a') as f:
             print(f'{time_sent}', file=f)
