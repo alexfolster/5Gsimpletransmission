@@ -25,11 +25,12 @@ while True:
         # check for frame if Nonetype
         if frame is None:
             break
-        time_sent = int(round(time.time() * 1000)) #time in ms
+        
         server.send(frame)
+        time_sent = int(round(time.time() * 1000)) #time in ms
 
         with open('transmit_times.txt', 'a') as f:
-            print(f'{time_sent}\n', file=f)
+            print(f'{time_sent}', file=f)
     
     except KeyboardInterrupt:
         break

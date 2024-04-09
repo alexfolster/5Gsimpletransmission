@@ -33,7 +33,7 @@ while True:
         break
 
     with open('recieve_times.txt', 'a') as f:
-        print(f'{time_recieved}\n', file=f)
+        print(f'{time_recieved}', file=f)
 
 # close output window
 cv2.destroyAllWindows()
