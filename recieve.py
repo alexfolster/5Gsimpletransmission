@@ -6,7 +6,7 @@ import time
 client = NetGear(
     address="127.0.0.1",
     port="5454",
-    protocol="udp",
+    protocol="tcp",
     pattern=0,
     receive_mode=True,
     logging=True
@@ -30,7 +30,7 @@ while True:
         key = cv2.waitKey(1) & 0xFF
         if key == ord("q"):
             break
-            
+
     except KeyboardInterrupt:
         break
 
