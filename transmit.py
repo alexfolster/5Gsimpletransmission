@@ -2,6 +2,7 @@
 from vidgear.gears import VideoGear
 from vidgear.gears import NetGear
 import time
+import cv2
 
 opt = {"CAP_PROP_FPS": 30}
 stream = VideoGear(source="test.mp4", **opt).start()
@@ -23,14 +24,22 @@ while True:
         # read frames from stream
         frame = stream.read()
 
+        
+
         # check for frame if Nonetype
         if frame is None:
             break
         
         height, width, depth = frame.shape
         frame_sizes.append(height*width*depth)
-        transmit_array.append(int(round(time.time() * 1000)))  #time in ms
+        transmit_array.append(int(round(time.time_ns()/100000)))  #time in ms
         server.send(frame)
+
+        cv2.imshow("INPUT Frame", frame)
+
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord("q"):
+            break
         
     except KeyboardInterrupt:
         break

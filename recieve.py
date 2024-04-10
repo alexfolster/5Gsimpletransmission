@@ -17,8 +17,9 @@ recieve_times = []
 while True:
     
     try:
+        
         frame = client.recv()
-        recieve_times.append(int(round(time.time() * 1000))) 
+        recieve_times.append(int(round(time.time_ns()/100000)))
 
         # again check for frame if None
         if frame is None:
