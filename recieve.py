@@ -3,8 +3,6 @@ from vidgear.gears import NetGear
 import cv2
 import time
 
-
-
 client = NetGear(
     address="127.0.0.1",
     port="5454",
@@ -14,26 +12,31 @@ client = NetGear(
     logging=True
 )
 
+recieve_times = []
 # loop over
 while True:
     
-    frame = client.recv()
-    time_recieved = int(round(time.time() * 1000))
+    try:
+        frame = client.recv()
+        recieve_times.append(int(round(time.time() * 1000))) 
 
-    # again check for frame if None
-    if frame is None:
+        # again check for frame if None
+        if frame is None:
+            break
+
+        # Show output window
+        cv2.imshow("Output Frame", frame)
+
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord("q"):
+            break
+            
+    except KeyboardInterrupt:
         break
 
-    # Show output window
-    cv2.imshow("Output Frame", frame)
-
-    # check for 'q' key if pressed
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord("q"):
-        break
-
+for t in recieve_times:
     with open('recieve_times.txt', 'a') as f:
-        print(f'{time_recieved}', file=f)
+        print(f'{t}', file=f)
 
 # close output window
 cv2.destroyAllWindows()

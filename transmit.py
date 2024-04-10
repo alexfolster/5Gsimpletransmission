@@ -15,7 +15,8 @@ server = NetGear(
     logging=True
 )
 
-
+transmit_array = []
+frame_sizes = []
 while True:
 
     try:
@@ -26,16 +27,17 @@ while True:
         if frame is None:
             break
         
-        time_sent = int(round(time.time() * 1000)) #time in ms
+        height, width, depth = frame.shape
+        frame_sizes.append(height*width*depth)
+        transmit_array.append(int(round(time.time() * 1000)))  #time in ms
         server.send(frame)
-       
-
-        with open('transmit_times.txt', 'a') as f:
-            print(f'{time_sent}', file=f)
-    
+        
     except KeyboardInterrupt:
         break
 
+for i in range(len(transmit_array)):
+    with open('transmit_times.txt', 'a') as f:
+        print(f'{transmit_array[i]},{frame_sizes[i]}', file=f)
 
 stream.stop()
 server.close()
