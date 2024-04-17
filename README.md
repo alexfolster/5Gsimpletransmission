@@ -19,4 +19,4 @@ python3 recieve.py <client_ip> <test #>
 ```
 Output Files are in .txt format:
 
-<event time in ms>, <frame size in bits>
+[event time in ms], [frame size in bits]
