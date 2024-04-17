@@ -8,3 +8,12 @@ pip3 install vidgear
 pip3 install pyzmq
 pip3 install opencv-python
 ```
+Usage:
+transmit.py
+```
+python3 transmit.py <file> <client_ip> <test #>
+```
+recieve.py
+```
+python3 recieve.py <client_ip> <test #>
+```
