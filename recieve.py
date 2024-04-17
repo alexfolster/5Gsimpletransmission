@@ -2,9 +2,18 @@
 from vidgear.gears import NetGear
 import cv2
 import time
+import sys
+
+# Check if a file name is provided as the second argument
+if len(sys.argv) < 3:
+   print("usage: python3 transmit.py <client_ip> <test #>")
+   sys.exit(1)
+
+client_ip = sys.argv[1]
+test_num = sys.argv[2]
 
 client = NetGear(
-    address="127.0.0.1",
+    address=client_ip,
     port="5454",
     protocol="tcp",
     pattern=0,
@@ -13,11 +22,10 @@ client = NetGear(
 )
 
 recieve_times = []
+frame_sizes = []
 # loop over
 while True:
-    
     try:
-        
         frame = client.recv()
         recieve_times.append(int(round(time.time_ns()/100000)))
 
@@ -25,19 +33,16 @@ while True:
         if frame is None:
             break
 
-        # Show output window
-        cv2.imshow("Output Frame", frame)
-
-        key = cv2.waitKey(1) & 0xFF
-        if key == ord("q"):
-            break
+        h, w, d = frame.shape
+        frame_sizes.append(h*w*d*8)
 
     except KeyboardInterrupt:
         break
 
-for t in recieve_times:
-    with open('recieve_times.txt', 'a') as f:
-        print(f'{t}', file=f)
+file_name = 'recieve_times_' + str(test_num) + '.txt'
+for i in range(len(frame_sizes)):
+    with open(file_name, 'a') as f:
+        print(f'{recieve_times[i]}, {frame_sizes[i]}', file=f)
 
 # close output window
 cv2.destroyAllWindows()
