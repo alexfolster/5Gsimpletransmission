@@ -6,7 +6,7 @@ import sys
 
 # Check if a file name is provided as the second argument
 if len(sys.argv) < 3:
-   print("usage: python3 transmit.py <client_ip> <test #>")
+   print("usage: python3 recieve.py <client_ip> <test #>")
    sys.exit(1)
 
 client_ip = sys.argv[1]
@@ -15,7 +15,7 @@ test_num = sys.argv[2]
 client = NetGear(
     address=client_ip,
     port="5454",
-    protocol="tcp",
+    protocol="udp",
     pattern=0,
     receive_mode=True,
     logging=True

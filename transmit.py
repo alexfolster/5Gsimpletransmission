@@ -20,7 +20,7 @@ stream = VideoGear(source=video_source, **opt).start()
 server = NetGear(
     address=client_ip,
     port="5454",
-    protocol="tcp",
+    protocol="udp",
     pattern=0,
     logging=True
 )
