@@ -15,7 +15,7 @@ test_num = sys.argv[2]
 client = NetGear(
     address=client_ip,
     port="5454",
-    protocol="udp",
+    protocol="tcp",
     pattern=0,
     receive_mode=True,
     logging=True
@@ -27,7 +27,7 @@ frame_sizes = []
 while True:
     try:
         frame = client.recv()
-        recieve_times.append(int(round(time.time_ns()/100000)))
+        recieve_times.append(int(round(time.time_ns()/1000000)))
 
         # again check for frame if None
         if frame is None:
